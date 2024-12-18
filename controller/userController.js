@@ -1,3 +1,4 @@
+import { error } from "console";
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { Admin } from "../models/user.models.js";
 import { generateToken } from "../utils/jwtToken.js";
@@ -23,8 +24,6 @@ export const adminRegister = catchAsyncErrors(async (req, res, next) => {
 export const adminLogin = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log("Login attempt", { email, password });
-
   if (!email || !password) {
       return next(new Error("Please Fill Full Form!", 400));
   }
@@ -32,22 +31,20 @@ export const adminLogin = catchAsyncErrors(async (req, res, next) => {
   const user = await Admin.findOne({ email }).select("+password");
 
   if (!user) {
-      console.log("User not found");
-      return next(new Error("Invalid Credentials!", 400));
+      return res.render("login", {
+        error: "Incorrect Email and Username!"
+      });
   }
-
-  console.log("User found", user.email);
 
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
-      console.log("Password does not match");
       return next(new Error("Invalid Credentials!", 400));
   }
 
-  console.log("Password matched, generating token");
-
   generateToken(user, "User Login Successfully!", 200, res);
+
+  return res.redirect("/dashboard")
 });
 
 export const adminLogout = catchAsyncErrors(async (req, res, next) => {
@@ -57,5 +54,5 @@ export const adminLogout = catchAsyncErrors(async (req, res, next) => {
   }).json({
     success: true,
     message: "Admin Logout Successfully!"
-  })
+  }).redirect("/");
 })

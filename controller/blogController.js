@@ -41,7 +41,7 @@ function checkFileType(file, cb) {
 
 export const getAllBlogs = catchAsyncErrors(async (req, res, next) => {
   try {
-    const blogs = await Blog.find({}).populate("category");
+    const blogs = await Blog.find({}).populate("category", "name");
     const categories = await Category.find({});
 
     res.render("allBlogs", {
@@ -59,7 +59,7 @@ export const getAllBlogs = catchAsyncErrors(async (req, res, next) => {
 
 export const getBlogForEditing = catchAsyncErrors(async (req, res, next) => {
   try {
-    const blog = await Blog.findById(req.params.id).populate("category");
+    const blog = await Blog.findById(req.params.id).populate("category", "name");
     const categories = await Category.find({});
 
     res.render("editingBlog", {
