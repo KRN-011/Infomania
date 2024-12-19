@@ -6,8 +6,8 @@ const router = express.Router();
 
 // admin routes
 
-router.get('/login', (req, res) => { res.render('admin/login') })
-router.get('/dashboard', isAdminAuthenticated, (req, res) => { res.render('admin/dashboard') })
+router.get('/login', (req, res) => { return res.render('login') })
+router.get('/dashboard', isAdminAuthenticated, (req, res) => { res.render('dashboard') })
 
 router.post('/register', adminRegister)
 router.post("/login", adminLogin)

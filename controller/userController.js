@@ -19,40 +19,39 @@ export const adminRegister = catchAsyncErrors(async (req, res, next) => {
   admin = await Admin.create({ fullname, email, password });
 
   generateToken(admin, "Admin registered!", 200, res);
-})
+});
 
 export const adminLogin = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-      return next(new Error("Please Fill Full Form!", 400));
+    return res.render("login", { error: "Please Fill Full Form!" });
   }
 
   const user = await Admin.findOne({ email }).select("+password");
 
   if (!user) {
-      return res.render("login", {
-        error: "Incorrect Email and Username!"
-      });
+    return res.render("login", {
+      error: "Incorrect Email and Username!",
+    });
   }
 
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
-      return next(new Error("Invalid Credentials!", 400));
+    return res.render("login", { error: "Invalid Credentials!" });
   }
 
-  generateToken(user, "User Login Successfully!", 200, res);
-
-  return res.redirect("/dashboard")
+  generateToken(user, res);
+  return res.redirect("/admin/dashboard");
 });
 
 export const adminLogout = catchAsyncErrors(async (req, res, next) => {
-  res.status(200).cookie("adminToken", "", {
-    httpOnly: true,
-    expires: new Date(Date.now())
-  }).json({
-    success: true,
-    message: "Admin Logout Successfully!"
-  }).redirect("/");
-})
+  res
+    .status(200)
+    .cookie("adminToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .redirect("/");
+});

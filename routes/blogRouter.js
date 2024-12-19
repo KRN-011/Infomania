@@ -16,7 +16,7 @@ const router = express.Router();
 router.get("/all", isAdminAuthenticated, getAllBlogs);
 router.get("/edit/:id", isAdminAuthenticated, getBlogForEditing);
 router.post("/edit/:id", isAdminAuthenticated, updateBlog);
-router.post("/home", isAdminAuthenticated, upload, createBlog);
+router.post("/add", isAdminAuthenticated, upload, createBlog);
 router.get("/delete/:id", isAdminAuthenticated, deleteBlog)
 
 //* render templates

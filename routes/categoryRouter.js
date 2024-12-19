@@ -6,9 +6,9 @@ import { addCategory, deleteCategory, getAllCategories, getCategoryDataForEditin
 const router = express.Router();
 
 router.get("/all", isAdminAuthenticated, getAllCategories)
-router.get("/edit", isAdminAuthenticated, getCategoryDataForEditing)
-router.post("/edit", isAdminAuthenticated, updateCategory)
-router.get("/delete", isAdminAuthenticated, deleteCategory)
+router.get("/edit/:id", isAdminAuthenticated, getCategoryDataForEditing)
+router.post("/edit/:id", isAdminAuthenticated, updateCategory)
+router.get("/delete/:id", isAdminAuthenticated, deleteCategory)
 router.post("/add", isAdminAuthenticated, addCategory)
 
 

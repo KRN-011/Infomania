@@ -35,7 +35,7 @@ export const updateCategory = catchAsyncErrors(async (req, res, next) => {
   try {
     await Category.findByIdAndUpdate(req.params.id, req.body);
 
-    res.redirect("/category/all-categories");
+    res.redirect("/category/all");
   } catch (error) {
     console.error("Error updating category: ", error);
     res.status(500).send("Internal Server Error!");
@@ -48,7 +48,7 @@ export const deleteCategory = catchAsyncErrors(async (req, res, next) => {
   try {
     await Category.findByIdAndDelete(req.params.id);
 
-    res.redirect("/category/all-categories");
+    res.redirect("/category/all");
   } catch (error) {
     console.error("Error deleting category: ", error);
     res.status(500).send("Internal Server Error!");
@@ -64,7 +64,7 @@ export const addCategory = catchAsyncErrors(async (req, res, next) => {
     const category = new Category({ name });
     await category.save();
 
-    res.redirect("/category/all-categories");
+    res.redirect("/category/all");
   } catch (error) {
     console.error("Error adding category: ", error);
     res.status(500).send("Internal Server Error!");
