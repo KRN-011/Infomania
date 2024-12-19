@@ -21,7 +21,7 @@
                 </form>
                 <!-- View All Blogs Button -->
                 <% if (isSearch) { %>
-                    <form action="/home" method="GET" class="d-flex justify-content-end">
+                    <form action="/blog/all" method="GET" class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-secondary mt-5">View All Blogs</button>
                     </form>
                     <% } %>
@@ -43,7 +43,7 @@
                                 <p class="post-meta">
                                     Posted by
                                     <span href="/user/<%= blog.createdBy._id %>">
-                                        <%= blog.createdBy.fullName %>
+                                        <%= blog.createdBy.fullname %>
                                     </span>
                                     on <%= blog.createdAt.toDateString() %>
                                 </p>

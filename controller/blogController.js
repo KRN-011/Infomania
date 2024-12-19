@@ -126,7 +126,7 @@ export const createBlog = catchAsyncErrors(async (req, res, next) => {
     res.redirect(`/blog/${blog.slug}`);
 
   } catch (error) {
-    console.error("Error creating blog:", error);
+    console.error("Error creating blog: ", error);
     res.status(500).send("Internal Server Error!");
   }
 });

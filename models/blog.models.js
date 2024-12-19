@@ -10,7 +10,7 @@ const blogSchema = new mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "Admin",
   },
   slug: {
     type: String,
