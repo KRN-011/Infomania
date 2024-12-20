@@ -1,6 +1,6 @@
 <% layout("/layouts/dashboard.ejs") %>
 
-    <form action="/blog/edit-blog/<%= blog._id %>" method="POST">
+    <form action="/blog/edit/<%= blog._id %>" method="POST">
         <div class="form-group">
             <label for="title">Blog Title</label>
             <input type="text" id="title" name="title" class="form-control" value="<%= blog.title %>" required>

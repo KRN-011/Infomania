@@ -27,8 +27,8 @@
                         <%- blog.description.substring(0, 50) %> ..
                     </td>
                     <td>
-                        <a href="/blog/edit-blog/<%= blog._id %>" class="btn btn-primary">Edit</a>
-                        <a href="/blog/delete-blog/<%= blog._id %>" class="btn btn-danger">Delete</a>
+                        <a href="/blog/edit/<%= blog._id %>" class="btn btn-primary">Edit</a>
+                        <a href="/blog/delete/<%= blog._id %>" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 <% }) %>

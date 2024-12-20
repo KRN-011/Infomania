@@ -21,6 +21,8 @@ import categoryRouter from "./routes/categoryRouter.js";
 import connectDB from "./database/db.js";
 import { Blog } from "./models/blog.models.js";
 import { Category } from "./models/category.models.js";
+import addUserToLocals from "./middlewares/addUserToLocals.js";
+import { setAdminState } from "./middlewares/auth.js";
 
 const app = express();
 
@@ -34,6 +36,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(addUserToLocals)
+app.use(setAdminState);
 app.use("/blog", express.static(path.join(__dirname, "/public")));
 app.use("/admin", express.static(path.join(__dirname, "/public")));
 
@@ -44,6 +48,7 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use("/admin", userRouter);
 app.use("/blog", blogRouter);
 app.use("/category", categoryRouter);
+
 
 // Connect to MongoDB
 

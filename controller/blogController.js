@@ -62,7 +62,7 @@ export const getBlogForEditing = catchAsyncErrors(async (req, res, next) => {
     const blog = await Blog.findById(req.params.id).populate("category", "name");
     const categories = await Category.find({});
 
-    res.render("editingBlog", {
+    res.render("editBlog", {
       user: req.user,
       blog,
       categories,
@@ -78,7 +78,7 @@ export const getBlogForEditing = catchAsyncErrors(async (req, res, next) => {
 export const updateBlog = catchAsyncErrors(async (req, res, next) => {
   try {
     await Blog.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect("/blog/all-blogs");
+    res.redirect("/blog/all");
   } catch (error) {
     console.error("Error updating blog: ", error);
     res.status(500).send("Internal Server Error!");
@@ -90,7 +90,7 @@ export const updateBlog = catchAsyncErrors(async (req, res, next) => {
 export const deleteBlog = catchAsyncErrors(async (req, res, next) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
-    res.redirect("/blog/all-blogs");
+    res.redirect("/blog/all");
   } catch (error) {
     console.error("Error deleting blog: ", error);
     res.status(500).send("Internal Server Error");
