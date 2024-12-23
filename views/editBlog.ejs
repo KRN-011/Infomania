@@ -1,24 +1,34 @@
 <% layout("/layouts/dashboard.ejs") %>
 
-    <form action="/blog/edit/<%= blog._id %>" method="POST">
-        <div class="form-group">
-            <label for="title">Blog Title</label>
-            <input type="text" id="title" name="title" class="form-control" value="<%= blog.title %>" required>
-        </div>
-        <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" name="category" class="form-control" required>
-                <% categories.forEach(category=> { %>
-                    <option value="<%= category._id %>" <option value="<%= category._id %>" <%= blog.category && category._id.equals(blog.category._id) ? 'selected' : '' %>>
-                        <%= category.name %>
-                    </option>
-                    <% }) %>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="rich-text-editor" name="description" class="form-control"
-                required><%- blog.description %></textarea>
-        </div>
+<form action="/blog/edit/<%= blog._id %>" method="POST" class="p-4 border rounded shadow">
+    <h2 class="mb-4 text-center">Edit Blog</h2>
+
+    <!-- Blog Title -->
+    <div class="mb-3">
+        <label for="title" class="form-label">Blog Title</label>
+        <input type="text" id="title" name="title" class="form-control" value="<%= blog.title %>" required>
+    </div>
+
+    <!-- Category Selection -->
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select id="category" name="category" class="form-select" required>
+            <% categories.forEach(category => { %>
+                <option value="<%= category._id %>" <%= blog.category && category._id.equals(blog.category._id) ? 'selected' : '' %>>
+                    <%= category.name %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="rich-text-editor" name="description" class="form-control" required><%- blog.description %></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
         <button type="submit" class="btn btn-primary">Save Changes</button>
-    </form>
+    </div>
+</form>

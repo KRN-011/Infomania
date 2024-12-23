@@ -1,29 +1,29 @@
 <% layout("/layouts/dashboard.ejs") %>
 
-    <section class="content-area">
-        <table class="table">
-            <thead>
+<section class="content-area p-4">
+    <table class="table table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach((category, index) => { %>
                 <tr>
-                    <th>Index</th>
-                    <th>Category Name</th>
-                    <th>Action</th>
+                    <th scope="row">
+                        <%= index + 1 %>
+                    </th>
+                    <td>
+                        <%= category.name %>
+                    </td>
+                    <td>
+                        <a href="/category/edit/<%= category._id %>" class="btn btn-sm btn-primary me-2">Edit</a>
+                        <a href="/category/delete/<%= category._id %>" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <% categories.forEach((category, index)=> { %>
-                    <tr>
-                        <td>
-                            <%= index + 1 %>
-                        </td>
-                        <td>
-                            <%= category.name %>
-                        </td>
-                        <td>
-                            <a href="/category/edit/<%= category._id %>" class="btn btn-primary">Edit</a>
-                            <a href="/category/delete/<%= category._id %>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
-    </section>
+            <% }) %>
+        </tbody>
+    </table>
+</section>
